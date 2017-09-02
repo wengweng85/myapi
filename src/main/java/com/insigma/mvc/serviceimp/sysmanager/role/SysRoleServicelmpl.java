@@ -90,8 +90,8 @@ public class SysRoleServicelmpl extends MvcHelper<SRole> implements SysRoleServi
 	 * 获取角色权限树
 	 */
 	@Override
-	public List<SRole> getRolePermTreeData(String roleid) {
-		return sysRoleMapper.getRolePermTreeData(roleid);
+	public AjaxReturnMsg<List<SRole>> getRolePermTreeData(String roleid) {
+		return this.success(sysRoleMapper.getRolePermTreeData(roleid));
 	}
 
 	/**

@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
@@ -23,7 +23,7 @@ import com.insigma.resolver.AppException;
 /**
  * ½¨ÒéËÑË÷controller
  */
-@Controller
+@RestController
 @RequestMapping(value = "/common/suggest")
 public class SuggestSearchController extends MvcHelper<SuggestKey> {
 
@@ -40,8 +40,7 @@ public class SuggestSearchController extends MvcHelper<SuggestKey> {
 	 * @return
 	 * @throws com.insigma.resolver.AppException
 	 */
-	@RequestMapping(value = "/searchcode")
-	@ResponseBody
+	@RequestMapping(value = "/searchcode",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<HashMap<String,List<SuggestKey>>> searchcodebykey(HttpServletRequest request, HttpServletResponse response,@RequestBody SuggestKey key) throws AppException {
 		return suggestSearchService.searchByKey(key);
 	}

@@ -8,14 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.dto.AjaxReturnMsg;
@@ -29,7 +27,7 @@ import com.insigma.resolver.AppException;
 /**
  * Created by wengsh on 2015-01-14.
  */
-@Controller
+@RestController
 @RequestMapping("/codetype")
 public class SysCodeTypeController extends MvcHelper<CodeValue> {
 
@@ -47,8 +45,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 * @throws AppException
 	 */
-	@RequestMapping(value = "/getInitcodetypeList")
-	@ResponseBody
+	@RequestMapping(value = "/getInitcodetypeList",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List <CodeType>> getInitcodetypeList(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		return sysCodeTypeService.getInitcodetypeList();
 	}
@@ -61,8 +58,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 * @throws AppException
 	 */
-	@RequestMapping(value = "/getInitCodeValueList/{code_type}")
-	@ResponseBody
+	@RequestMapping(value = "/getInitCodeValueList/{code_type}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List <CodeValue>> getInitCodeValueList(HttpServletRequest request, HttpServletResponse response,@PathVariable String code_type) throws AppException {
 		CodeType codetype=new CodeType();
 		codetype.setCode_type(code_type);
@@ -78,8 +74,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 * @throws com.insigma.resolver.AppException
 	 */
-	@RequestMapping(value = "/treedata/{code_type}")
-	@ResponseBody
+	@RequestMapping(value = "/treedata/{code_type}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List<CodeValue>> treedata(HttpServletRequest request, HttpServletResponse response,@PathVariable String code_type) throws AppException {
 		String id=request.getParameter("id");
 		if(StringUtils.isEmpty(id)){
@@ -99,25 +94,11 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 * @throws com.insigma.resolver.AppException
 	 */
-	@RequestMapping(value = "/queryByCodeTypeAndParent")
-	@ResponseBody
+	@RequestMapping(value = "/queryByCodeTypeAndParent",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List<CodeValue>> queryByCodeTypeAndParent(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeValue codevalue) throws AppException {
 		return sysCodeValueService.queryCodeValueByCodeTypeAndParent(codevalue);
 	}
 	
-	
-	
-	/**
-	 * 跳转至代码管理页面
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/index")
-	@RequiresRoles("admin")
-	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("sysmanager/codevalue/sysCodeTypeIndex");
-        return modelAndView;
-	}
 	
 	
 	/**
@@ -128,9 +109,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 * @throws com.insigma.resolver.AppException
 	 */
-	@RequestMapping(value = "/codetype_treedata")
-	@ResponseBody
-	@RequiresRoles("admin")
+	@RequestMapping(value = "/codetype_treedata",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List<CodeType>> codetype_treedata(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeType codetype) throws AppException {
 		return sysCodeTypeService.getCodeTypeTreeData(codetype);
 	}
@@ -145,13 +124,10 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 * @throws com.insigma.resolver.AppException
 	 */
-	@RequestMapping(value = "/codevalue_treedata")
-	@ResponseBody
-	@RequiresRoles("admin")
+	@RequestMapping(value = "/codevalue_treedata",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List<CodeType>> codevalue_treedata(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeType  codetype) throws AppException {
 		return sysCodeTypeService.getCodeValueTreeData(codetype);
 	}
-	
 	
 	
 	/**
@@ -159,10 +135,8 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/saveOrUpdateCodeType")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<String> saveOrUpdateCodeTypedata(HttpServletRequest request,Model model,@RequestBody @Valid CodeType codetype,BindingResult result) throws Exception {
+	@RequestMapping(value="/saveOrUpdateCodeType",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> saveOrUpdateCodeTypedata(HttpServletRequest request,@RequestBody @Valid CodeType codetype,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
@@ -172,17 +146,13 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	
 	
 	
-	
-	
 	/**
 	 * 更新或保存代码类型
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/saveOrUpdateCodeTypeDetail")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<String> saveOrUpdateCodeTypeDetail(HttpServletRequest request,Model model,@RequestBody @Valid CodeValue codevalue,BindingResult result) throws Exception {
+	@RequestMapping(value="/saveOrUpdateCodeTypeDetail",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> saveOrUpdateCodeTypeDetail(HttpServletRequest request,@RequestBody @Valid CodeValue codevalue,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
@@ -196,10 +166,8 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/deleteCodeType/{code_type}")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<String> deleteCodeType(HttpServletRequest request,Model model,@PathVariable String code_type) throws Exception {
+	@RequestMapping(value="/deleteCodeType/{code_type}",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> deleteCodeType(HttpServletRequest request,@PathVariable String code_type) throws Exception {
 		return sysCodeTypeService.deleteCodeType(code_type);
 	}
 	
@@ -209,10 +177,8 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/deleteCodeValue/{code_seq}")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<String> deleteCodeValue(HttpServletRequest request,Model model,@PathVariable String code_seq) throws Exception {
+	@RequestMapping(value="/deleteCodeValue/{code_seq}",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> deleteCodeValue(HttpServletRequest request,@PathVariable String code_seq) throws Exception {
 		return sysCodeValueService.deleteCodeValue(code_seq);
 	}
 	
@@ -225,8 +191,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	  * @return
 	  * @throws AppException
 	  */
-	 @RequestMapping(value = "/getCodeValueList")
-	 @ResponseBody
+	 @RequestMapping(value = "/getCodeValueList",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	 public AjaxReturnMsg<List<CodeValue>> getCodeValueList(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeType codetype) throws AppException {
 		   return sysCodeValueService.getInitCodeValueList(codetype);
 	 } 

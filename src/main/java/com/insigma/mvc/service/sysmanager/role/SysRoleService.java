@@ -24,7 +24,7 @@ public interface SysRoleService {
 	
 	public AjaxReturnMsg<String> deleteRoleDataById(String id);
 	
-	public List<SRole> getRolePermTreeData(String roleid);
+	public AjaxReturnMsg<List<SRole>> getRolePermTreeData(String roleid);
 	
 	public AjaxReturnMsg<String> saveRolePermData(SRole srole);
 

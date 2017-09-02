@@ -36,6 +36,14 @@
         </mvc:message-converters>
      </mvc:annotation-driven>
      
+     <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.insigma.common.interceptor.ApiInterceptor" />
+        </mvc:interceptor>
+     </mvc:interceptors>
+     
+     
      <!-- conversionService -->
      <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">    
         <property name="converters">    

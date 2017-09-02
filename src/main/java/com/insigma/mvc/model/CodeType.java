@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
-public class CodeType implements java.io.Serializable {
+public class CodeType extends PageInfo  implements java.io.Serializable {
 
 	/**
 	 * serialVersionUID

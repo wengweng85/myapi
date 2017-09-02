@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
@@ -25,7 +27,7 @@ import com.insigma.mvc.service.login.LoginService;
  * @author Administrator
  *
  */
-@Controller
+@RestController
 public class LoginController extends MvcHelper {
 	
 	Log log=LogFactory.getLog(LoginController.class);
@@ -41,8 +43,7 @@ public class LoginController extends MvcHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/getUserAndGroupInfo/{loginname}")
-	@ResponseBody
+	@RequestMapping(value = "/getUserAndGroupInfo/{loginname}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<SUser> getUserAndGroupInfo(HttpServletRequest request,@PathVariable String loginname) throws Exception {
 		//转换成json对象并调用远程接口
 		return loginservice.getUserAndGroupInfo(loginname);
@@ -55,8 +56,7 @@ public class LoginController extends MvcHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/findPermissionStr/{username}")
-	@ResponseBody
+	@RequestMapping(value = "/findPermissionStr/{username}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List<SPermission>> findPermissionStr(HttpServletRequest request,@PathVariable String username) throws Exception {
 		return loginservice.findPermissionStr(username);
 	}
@@ -68,8 +68,7 @@ public class LoginController extends MvcHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/findRolesStr/{username}")
-	@ResponseBody
+	@RequestMapping(value = "/findRolesStr/{username}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List<SRole>> findRolesStr(HttpServletRequest request,@PathVariable String username) throws Exception {
 		return loginservice.findRolesStr(username);
 	}

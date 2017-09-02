@@ -37,7 +37,6 @@ public class SRole extends PageInfo implements java.io.Serializable {
 	@JsonIgnore
 	private String permissionid;
 	
-	@JsonIgnore
 	private String selectnodes;
 	public String getUserid() {
 		return userid;

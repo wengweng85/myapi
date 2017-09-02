@@ -12,7 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
@@ -25,7 +27,7 @@ import com.insigma.mvc.service.demo.DemoAc01Service;
  * @author wengsh
  *
  */
-@Controller
+@RestController
 @RequestMapping("/demo")
 public class DemoController extends MvcHelper<DemoAc01> {
 	
@@ -39,9 +41,8 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getAc01List")
-	@ResponseBody
-	public AjaxReturnMsg<HashMap<String, Object>> apiGetAc01List(HttpServletRequest request,Model model, @RequestBody DemoAc01 ac01 ) throws Exception {
+	@RequestMapping(value="/getAc01List",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<HashMap<String, Object>> apiGetAc01List(HttpServletRequest request, @RequestBody DemoAc01 ac01 ) throws Exception {
 		return demoAc01Service.getDemoAc01List(ac01);
 	}
 	
@@ -52,9 +53,8 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param aac001
 	 * @return
 	 */
-	@RequestMapping("/deletebyid/{id}")
-	@ResponseBody
-	public AjaxReturnMsg<String> deleteDemoDataById(HttpServletRequest request,Model model,@PathVariable String id){
+	@RequestMapping(value="/deletebyid/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> deleteDemoDataById(HttpServletRequest request,@PathVariable String id){
 		return demoAc01Service.deleteDemoById(id);
 	}
 	
@@ -64,9 +64,8 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getDemoById/{id}")
-	@ResponseBody
-	public AjaxReturnMsg<DemoAc01> getDemoById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+	@RequestMapping(value="/getDemoById/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<DemoAc01> getDemoById(HttpServletRequest request,@PathVariable String id) throws Exception {
 		return demoAc01Service.getDemoById(id);
 	}
 	
@@ -76,9 +75,8 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getDemoNameById/{id}")
-	@ResponseBody
-	public AjaxReturnMsg<DemoAc01> getDemoNameById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+	@RequestMapping(value="/getDemoNameById/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<DemoAc01> getDemoNameById(HttpServletRequest request,@PathVariable String id) throws Exception {
 		return demoAc01Service.getDemoNameById(id);
 	}
 	
@@ -90,9 +88,8 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param aac001
 	 * @return
 	 */
-	@RequestMapping("/batdelete")
-	@ResponseBody
-	public AjaxReturnMsg<String> batDeleteDemodata(HttpServletRequest request,Model model,@RequestBody DemoAc01 ac01){
+	@RequestMapping(value="/batdelete",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> batDeleteDemodata(HttpServletRequest request,@RequestBody DemoAc01 ac01){
 		return demoAc01Service.batDeleteDemoData(ac01);
 	}
 	
@@ -102,9 +99,8 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/savedata")
-	@ResponseBody
-	public AjaxReturnMsg<String> savedata(HttpServletRequest request,Model model,@RequestBody @Valid DemoAc01 ac01,BindingResult result) throws Exception {
+	@RequestMapping(value="/savedata",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> savedata(HttpServletRequest request,@RequestBody @Valid DemoAc01 ac01,BindingResult result) throws Exception {
 		//ºÏ—È ‰»Î
 		if (result.hasErrors()){
 			return validate(result);
@@ -117,9 +113,8 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/updatefile/{id}/{bus_uuid}")
-	@ResponseBody
-	public AjaxReturnMsg<String> updatefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String bus_uuid) throws Exception {
+	@RequestMapping(value="/updatefile/{id}/{bus_uuid}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> updatefile(HttpServletRequest request,@PathVariable String id,@PathVariable String bus_uuid) throws Exception {
 		DemoAc01 ac01=new DemoAc01();
 		ac01.setAac001(id);
 		ac01.setBus_uuid (bus_uuid);
@@ -131,14 +126,12 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/deletefile/{id}/{bus_uuid}")
-	@ResponseBody
-	public AjaxReturnMsg<String> deletefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String bus_uuid) throws Exception {
+	@RequestMapping(value="/deletefile/{id}/{bus_uuid}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> deletefile(HttpServletRequest request,@PathVariable String id,@PathVariable String bus_uuid) throws Exception {
 		DemoAc01 ac01=new DemoAc01();
 		ac01.setAac001(id);
 		ac01.setBus_uuid(bus_uuid);
 		return demoAc01Service.deletefile(ac01);
 	}
-
 
 }

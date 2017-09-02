@@ -8,15 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
@@ -28,7 +25,7 @@ import com.insigma.mvc.service.sysmanager.role.SysRoleService;
  * @author wengsh
  *
  */
-@Controller
+@RestController
 @RequestMapping("/sys/role")
 public class SysRoleController extends MvcHelper<SRole>  {
 	
@@ -40,10 +37,8 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/querylist")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<HashMap<String,Object>> querylist(HttpServletRequest request,Model model,@RequestBody SRole srole) throws Exception {
+	@RequestMapping(value="/querylist",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<HashMap<String,Object>> querylist(HttpServletRequest request,@RequestBody SRole srole) throws Exception {
 		return sysRoleService.getAllRoleList(srole);
 	}
 	
@@ -53,35 +48,20 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getRoleData/{id}")
-	@RequiresRoles("admin")
-	@ResponseBody
-	public AjaxReturnMsg<SRole> getPermDataByid(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable String id) throws Exception {
+	@RequestMapping(value="/getRoleData/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<SRole> getPermDataByid(HttpServletRequest request, HttpServletResponse response,@PathVariable String id) throws Exception {
 		return sysRoleService.getRoleDataById(id);
 	}
 	
 	
-	/**
-	 * 页面初始化
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/toRoleEdit/{id}")
-	public ModelAndView toRoleEdit(HttpServletRequest request,@PathVariable String id) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("sysmanager/role/sysRoleEdit");
-		SRole srole= sysRoleService.getRoleDataById(id).getObj();
-		modelAndView.addObject("srole",srole);  
-        return modelAndView;
-	}
+
 	/**
 	 * 删除角色相关数据
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/deleteRoleDataById/{id}")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<String> deleteRoleDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+	@RequestMapping(value="/deleteRoleDataById/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> deleteRoleDataById(HttpServletRequest request,@PathVariable String id) throws Exception {
 		return  sysRoleService.deleteRoleDataById(id);
 	}
 	
@@ -90,10 +70,8 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/saveorupdate")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request,Model model,@RequestBody @Valid SRole srole,BindingResult result) throws Exception {
+	@RequestMapping(value="/saveorupdate",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request,@RequestBody @Valid SRole srole,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
@@ -106,12 +84,9 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/treedata")
-	@RequiresRoles("admin")
-	@ResponseBody
-	public  List<SRole> treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
-		String id=request.getParameter("id");
-		return sysRoleService.getRolePermTreeData(id);
+	@RequestMapping(value="/treedata/{id}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	public  AjaxReturnMsg<List<SRole>> treedata(HttpServletRequest request, HttpServletResponse response,@PathVariable String id) throws Exception {
+		return  sysRoleService.getRolePermTreeData(id);
 	}
 	
 	
@@ -120,10 +95,8 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/saveroleperm")
-	@ResponseBody
-	@RequiresRoles("admin")
-	public AjaxReturnMsg<String> saveroleperm(HttpServletRequest request,Model model,@RequestBody SRole srole) throws Exception {
+	@RequestMapping(value="/saveroleperm",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<String> saveroleperm(HttpServletRequest request,@RequestBody SRole srole) throws Exception {
 		return sysRoleService.saveRolePermData(srole);
 	}
 }
