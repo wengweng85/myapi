@@ -6,14 +6,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insigma.dto.AjaxReturnMsg;
@@ -43,6 +40,16 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 */
 	@RequestMapping(value="/getAc01List",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<HashMap<String, Object>> apiGetAc01List(HttpServletRequest request, @RequestBody DemoAc01 ac01 ) throws Exception {
+		return demoAc01Service.getDemoAc01List(ac01);
+	}
+	
+	/**
+	 * 获取人员信息列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/getAc01List_form",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public AjaxReturnMsg<HashMap<String, Object>> getAc01List_form(HttpServletRequest request,  DemoAc01 ac01 ) throws Exception {
 		return demoAc01Service.getDemoAc01List(ac01);
 	}
 	
