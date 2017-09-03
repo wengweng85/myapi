@@ -116,8 +116,10 @@ public class DemoAc01ServiceImpl extends MvcHelper<DemoAc01> implements DemoAc01
 			//更新个人附件文件信息
 			Map<String,Object> map =new HashMap<String,Object>();
 			map.put("file_bus_id", ac01.getAac001());
-			map.put("bus_uuids",ac01.getSelectnodes().split(","));
-			fileLoadService.batupdateBusIdByBusUuidArray(map);
+			if(ac01.getSelectnodes()!=null){
+				map.put("bus_uuids",ac01.getSelectnodes().split(","));
+				fileLoadService.batupdateBusIdByBusUuidArray(map);
+			}
 			if(updatenum==1){
 				return this.success("更新成功");
 			}else{

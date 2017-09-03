@@ -12,6 +12,7 @@ import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.sysmanager.codetype.SysCodeTypeMapper;
 import com.insigma.mvc.model.CodeType;
+import com.insigma.mvc.model.CodeValue;
 import com.insigma.mvc.service.sysmanager.codetype.SysCodeTypeService;
 
 /**
@@ -41,18 +42,7 @@ public class SysCodeTypeServiceImpl extends MvcHelper<CodeType> implements SysCo
 		return this.success(sysCodeTypeMapper.getCodeTypeTreeData(codetype));
 	}
 
-	@Override
-	public AjaxReturnMsg<List<CodeType>> getCodeValueTreeData(CodeType codetype) {
-		//≥ı¥Œº”‘ÿ
-		if(StringUtils.isEmpty(codetype.getId())&& StringUtils.isEmpty(codetype.getCode_root_value())){
-			return this.success(sysCodeTypeMapper.getCodeValueByType(codetype));
-		}else{
-			if(StringUtils.isEmpty(codetype.getId())){
-				codetype.setCode_root_value(codetype.getId());
-			}
-			return this.success(sysCodeTypeMapper.getCodeValueByTypeAndRoot(codetype));
-		}
-	}
+
 
 	@Override
 	public AjaxReturnMsg<CodeType> getCodeTypeInfo(String code_type) {

@@ -43,16 +43,7 @@ public class QuartzJobServiceImpl   extends MvcHelper implements QuartzJobServic
 	@Autowired
 	private Scheduler quartzScheduler;
 
-	
-	
-	@Override
-	public HashMap<String,Object> queryJobList( QrtzTrigger qrtztrigger) {
-		PageHelper.offsetPage(qrtztrigger.getOffset(), qrtztrigger.getLimit());
-		List<QrtzTrigger> list =quartzJobMapper.queryJobList(qrtztrigger);
-		PageInfo<QrtzTrigger> pageinfo = new PageInfo<QrtzTrigger>(list);
-		return this.success_hashmap_response(pageinfo);
-	}
-	
+
 	
 
 	/**
@@ -140,6 +131,12 @@ public class QuartzJobServiceImpl   extends MvcHelper implements QuartzJobServic
 			quartzScheduler.deleteJob(new JobKey(ids[i], Scheduler.DEFAULT_GROUP));
 		}
 		return this.success("批量删除成功");
+	}
+
+	@Override
+	public HashMap<String, Object> queryJobList(QrtzTrigger qrtztrigger) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

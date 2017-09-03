@@ -3,7 +3,6 @@ package com.insigma.resolver;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +26,7 @@ public class MyCustomSimpleMappingExceptionResolver  extends  SimpleMappingExcep
         e.printStackTrace();
         // Expose ModelAndView for chosen error view.
         String viewName = determineViewName(e, request);
-        if (viewName != null) {// JSP格式返回
+        if (null != viewName) {// JSP格式返回
             if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request.getHeader("X-Requested-With")!= null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
             	// 如果不是异步请求
                 // Apply HTTP status code for error views, if specified.
@@ -40,17 +39,29 @@ public class MyCustomSimpleMappingExceptionResolver  extends  SimpleMappingExcep
             } else {// JSON格式返回
                 try {
                     PrintWriter writer = response.getWriter();
-                    AjaxReturnMsg dto = new AjaxReturnMsg();
+                    AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
                     dto.setSuccess(false);
                     dto.setMessage(e.getMessage());
                     writer.write(JSONObject.fromObject(dto).toString());
                     writer.flush();
+                    writer.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
                 return null;
             }
         } else {
+        	 try {
+                 PrintWriter writer = response.getWriter();
+                 AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
+                 dto.setSuccess(false);
+                 dto.setMessage(e.getMessage());
+                 writer.write(JSONObject.fromObject(dto).toString());
+                 writer.flush();
+                 writer.close();
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
              return null;
         }
     }

@@ -39,7 +39,7 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @return
 	 */
 	@RequestMapping(value="/getAc01List",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<HashMap<String, Object>> apiGetAc01List(HttpServletRequest request,  DemoAc01 ac01 ) throws Exception {
+	public AjaxReturnMsg<HashMap<String, Object>> apiGetAc01List(HttpServletRequest request, @RequestBody DemoAc01 ac01 ) throws Exception {
 		return demoAc01Service.getDemoAc01List(ac01);
 	}
 
@@ -87,7 +87,7 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @return
 	 */
 	@RequestMapping(value="/batdelete",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> batDeleteDemodata(HttpServletRequest request, DemoAc01 ac01){
+	public AjaxReturnMsg<String> batDeleteDemodata(HttpServletRequest request,@RequestBody DemoAc01 ac01){
 		return demoAc01Service.batDeleteDemoData(ac01);
 	}
 	
@@ -98,7 +98,7 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 * @return
 	 */
 	@RequestMapping(value="/savedata",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> savedata(HttpServletRequest request, @Valid DemoAc01 ac01,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> savedata(HttpServletRequest request,@RequestBody @Valid DemoAc01 ac01,BindingResult result) throws Exception {
 		//ºÏ—È ‰»Î
 		if (result.hasErrors()){
 			return validate(result);

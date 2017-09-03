@@ -14,12 +14,12 @@ import com.insigma.mvc.model.CodeValue;
 public interface SysCodeTypeMapper {
 	
 	public List<CodeType> getInitcodetypeList();
-	public List<CodeValue> getInitCodeValueList(CodeType codetype);
+	public List<CodeValue> getInitCodeValueList(CodeValue codetype);
 	public List<CodeValue> queryCodeValueByCodeTypeAndParent(CodeValue codevalue);
 	public List<CodeValue> getCodeValueTree(CodeValue codevalue);
 	public List<CodeType> getCodeTypeTreeData(CodeType codetype);
-	public List<CodeType> getCodeValueByType(CodeType codetype);
-	public List<CodeType> getCodeValueByTypeAndRoot(CodeType codetype);
+	public List<CodeValue> getCodeValueByType(CodeValue codevalue);
+	public List<CodeValue> getCodeValueByTypeAndRoot(CodeValue codevalue);
 	public CodeType getCodeTypeInfo(String code_type);
 	public CodeValue getCodeValueByValue(CodeValue codevalue);
 	public int addCodeType(CodeType codetype);

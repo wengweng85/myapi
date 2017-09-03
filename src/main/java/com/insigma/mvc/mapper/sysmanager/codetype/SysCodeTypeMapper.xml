@@ -62,7 +62,7 @@
 	
 	
 	<!-- 通过代码类型获取代码明细信息 -->
-	<select id="getCodeValueByType" parameterType="CodeType" resultType="CodeType" >
+	<select id="getCodeValueByType" parameterType="CodeValue" resultType="CodeValue" >
 	 select
 	    code_seq, 
 		code_value id  , 
@@ -82,7 +82,7 @@
 	</select>
 	
 	<!-- 通过代码头节点+代码类型获取代码明细信息 -->
-	<select id="getCodeValueByTypeAndRoot" parameterType="CodeType" resultType="CodeType" >
+	<select id="getCodeValueByTypeAndRoot" parameterType="CodeValue" resultType="CodeValue" >
 		 select 
 		 code_seq ,
 		 code_value id, 

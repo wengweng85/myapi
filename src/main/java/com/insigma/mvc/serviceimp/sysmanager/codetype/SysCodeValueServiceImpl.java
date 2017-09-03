@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.sysmanager.codetype.SysCodeTypeMapper;
-import com.insigma.mvc.model.CodeType;
 import com.insigma.mvc.model.CodeValue;
 import com.insigma.mvc.service.sysmanager.codetype.SysCodeValueService;
 
@@ -38,11 +38,23 @@ public class SysCodeValueServiceImpl extends MvcHelper<CodeValue> implements Sys
 
 
 	@Override
-	public AjaxReturnMsg<List<CodeValue>> getInitCodeValueList(CodeType codetype) {
+	public AjaxReturnMsg<List<CodeValue>> getInitCodeValueList(CodeValue codevalue) {
 		// TODO Auto-generated method stub
-		return this.success(sysCodeTypeMapper.getInitCodeValueList(codetype));
+		return this.success(sysCodeTypeMapper.getInitCodeValueList(codevalue));
 	}
 
+	@Override
+	public AjaxReturnMsg<List<CodeValue>> getCodeValueTreeData(CodeValue codevalue) {
+		//≥ı¥Œº”‘ÿ
+		if(StringUtils.isEmpty(codevalue.getId())&& StringUtils.isEmpty(codevalue.getCode_root_value())){
+			return this.success(sysCodeTypeMapper.getCodeValueByType(codevalue));
+		}else{
+			if(!StringUtils.isEmpty(codevalue.getId())){
+				codevalue.setCode_root_value(codevalue.getId());
+			}
+			return this.success(sysCodeTypeMapper.getCodeValueByTypeAndRoot(codevalue));
+		}
+	}
 	
 	
 	

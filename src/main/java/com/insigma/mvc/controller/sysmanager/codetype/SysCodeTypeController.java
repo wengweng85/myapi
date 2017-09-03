@@ -59,9 +59,9 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 */
 	@RequestMapping(value = "/getInitCodeValueList/{code_type}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public AjaxReturnMsg<List <CodeValue>> getInitCodeValueList(HttpServletRequest request, HttpServletResponse response,@PathVariable String code_type) throws AppException {
-		CodeType codetype=new CodeType();
-		codetype.setCode_type(code_type);
-		return sysCodeValueService.getInitCodeValueList(codetype);
+		CodeValue codevalue=new CodeValue();
+		codevalue.setCode_type(code_type);
+		return sysCodeValueService.getInitCodeValueList(codevalue);
 	}
 	
 	
@@ -124,8 +124,8 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @throws com.insigma.resolver.AppException
 	 */
 	@RequestMapping(value = "/codevalue_treedata",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<List<CodeType>> codevalue_treedata(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeType  codetype) throws AppException {
-		return sysCodeTypeService.getCodeValueTreeData(codetype);
+	public AjaxReturnMsg<List<CodeValue>> codevalue_treedata(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeValue  codevalue) throws AppException {
+		return sysCodeValueService.getCodeValueTreeData(codevalue);
 	}
 	
 	
@@ -191,8 +191,8 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	  * @throws AppException
 	  */
 	 @RequestMapping(value = "/getCodeValueList",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	 public AjaxReturnMsg<List<CodeValue>> getCodeValueList(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeType codetype) throws AppException {
-		   return sysCodeValueService.getInitCodeValueList(codetype);
+	 public AjaxReturnMsg<List<CodeValue>> getCodeValueList(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeValue codevalue) throws AppException {
+		   return sysCodeValueService.getInitCodeValueList(codevalue);
 	 } 
 	
 	

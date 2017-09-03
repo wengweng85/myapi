@@ -16,6 +16,11 @@
 	</properties>
   <dependencies>
         <!--自定义jar包 -->
+        <dependency>
+			<groupId>com.insigma</groupId>
+            <artifactId>myapi-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+		</dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 		    <groupId>junit</groupId>
