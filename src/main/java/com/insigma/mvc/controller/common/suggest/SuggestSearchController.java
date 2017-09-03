@@ -41,7 +41,7 @@ public class SuggestSearchController extends MvcHelper<SuggestKey> {
 	 * @throws com.insigma.resolver.AppException
 	 */
 	@RequestMapping(value = "/searchcode",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<HashMap<String,List<SuggestKey>>> searchcodebykey(HttpServletRequest request, HttpServletResponse response,@RequestBody SuggestKey key) throws AppException {
+	public AjaxReturnMsg<HashMap<String,List<SuggestKey>>> searchcodebykey(HttpServletRequest request, HttpServletResponse response, SuggestKey key) throws AppException {
 		return suggestSearchService.searchByKey(key);
 	}
 

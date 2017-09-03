@@ -38,7 +38,7 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @return
 	 */
 	@RequestMapping(value="/querylist",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<HashMap<String,Object>> querylist(HttpServletRequest request,@RequestBody SRole srole) throws Exception {
+	public AjaxReturnMsg<HashMap<String,Object>> querylist(HttpServletRequest request, SRole srole) throws Exception {
 		return sysRoleService.getAllRoleList(srole);
 	}
 	
@@ -71,7 +71,7 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @return
 	 */
 	@RequestMapping(value="/saveorupdate",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request,@RequestBody @Valid SRole srole,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request, @Valid SRole srole,BindingResult result) throws Exception {
 		//ºÏ—È ‰»Î
 		if (result.hasErrors()){
 			return validate(result);
@@ -96,7 +96,7 @@ public class SysRoleController extends MvcHelper<SRole>  {
 	 * @return
 	 */
 	@RequestMapping(value="/saveroleperm",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> saveroleperm(HttpServletRequest request,@RequestBody SRole srole) throws Exception {
+	public AjaxReturnMsg<String> saveroleperm(HttpServletRequest request, SRole srole) throws Exception {
 		return sysRoleService.saveRolePermData(srole);
 	}
 }

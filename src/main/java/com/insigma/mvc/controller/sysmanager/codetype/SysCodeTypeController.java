@@ -94,7 +94,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @throws com.insigma.resolver.AppException
 	 */
 	@RequestMapping(value = "/queryByCodeTypeAndParent",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<List<CodeValue>> queryByCodeTypeAndParent(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeValue codevalue) throws AppException {
+	public AjaxReturnMsg<List<CodeValue>> queryByCodeTypeAndParent(HttpServletRequest request, HttpServletResponse response, CodeValue codevalue) throws AppException {
 		return sysCodeValueService.queryCodeValueByCodeTypeAndParent(codevalue);
 	}
 	
@@ -109,7 +109,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @throws com.insigma.resolver.AppException
 	 */
 	@RequestMapping(value = "/codetype_treedata",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<List<CodeType>> codetype_treedata(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeType codetype) throws AppException {
+	public AjaxReturnMsg<List<CodeType>> codetype_treedata(HttpServletRequest request, HttpServletResponse response, CodeType codetype) throws AppException {
 		return sysCodeTypeService.getCodeTypeTreeData(codetype);
 	}
 	
@@ -124,7 +124,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @throws com.insigma.resolver.AppException
 	 */
 	@RequestMapping(value = "/codevalue_treedata",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<List<CodeValue>> codevalue_treedata(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeValue  codevalue) throws AppException {
+	public AjaxReturnMsg<List<CodeValue>> codevalue_treedata(HttpServletRequest request, HttpServletResponse response, CodeValue  codevalue) throws AppException {
 		return sysCodeValueService.getCodeValueTreeData(codevalue);
 	}
 	
@@ -135,7 +135,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 */
 	@RequestMapping(value="/saveOrUpdateCodeType",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> saveOrUpdateCodeTypedata(HttpServletRequest request,@RequestBody @Valid CodeType codetype,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> saveOrUpdateCodeTypedata(HttpServletRequest request, @Valid CodeType codetype,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
@@ -151,7 +151,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 * @return
 	 */
 	@RequestMapping(value="/saveOrUpdateCodeTypeDetail",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> saveOrUpdateCodeTypeDetail(HttpServletRequest request,@RequestBody @Valid CodeValue codevalue,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> saveOrUpdateCodeTypeDetail(HttpServletRequest request, @Valid CodeValue codevalue,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
@@ -191,7 +191,7 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	  * @throws AppException
 	  */
 	 @RequestMapping(value = "/getCodeValueList",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	 public AjaxReturnMsg<List<CodeValue>> getCodeValueList(HttpServletRequest request, HttpServletResponse response,@RequestBody CodeValue codevalue) throws AppException {
+	 public AjaxReturnMsg<List<CodeValue>> getCodeValueList(HttpServletRequest request, HttpServletResponse response, CodeValue codevalue) throws AppException {
 		   return sysCodeValueService.getInitCodeValueList(codevalue);
 	 } 
 	

@@ -1,2 +1,6 @@
 
 *.class
+*.war
+target/classes/com/insigma/mvc/mapper/demo/DemoAc01Mapper.xml
+target/classes/mybatis-generator/generatorConfig.xml
+target/maven-archiver/pom.properties

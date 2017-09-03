@@ -62,7 +62,7 @@ public class SysUserRoleController extends MvcHelper {
 	 * @return
 	 */
 	@RequestMapping(value="/getUserListDataByid",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<HashMap<String,Object>> getUserListByGroupid(HttpServletRequest request,@RequestBody SGroup sgroup ) throws Exception {
+	public AjaxReturnMsg<HashMap<String,Object>> getUserListByGroupid(HttpServletRequest request, SGroup sgroup ) throws Exception {
 		if(StringUtils.isEmpty(sgroup.getGroupid())){
 			sgroup.setGroupid("G001");
 		}
@@ -76,7 +76,7 @@ public class SysUserRoleController extends MvcHelper {
 	 * @return
 	 */
 	@RequestMapping(value="/getRoleByUserId",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<HashMap<String,Object>> getRoleByUserId(HttpServletRequest request,@RequestBody SRole srole ) throws Exception {
+	public AjaxReturnMsg<HashMap<String,Object>> getRoleByUserId(HttpServletRequest request, SRole srole ) throws Exception {
 		if(StringUtils.isEmpty(srole.getUserid())){
 			srole.setUserid("");
 		}
@@ -93,7 +93,7 @@ public class SysUserRoleController extends MvcHelper {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/saveUserRole",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg saveUserRole(HttpServletRequest request,@RequestBody SRole srole ) throws Exception {
+	public AjaxReturnMsg saveUserRole(HttpServletRequest request, SRole srole ) throws Exception {
 		return sysUserRoleService.saveUserRole(srole);
 	}
 }

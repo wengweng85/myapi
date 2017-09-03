@@ -102,7 +102,7 @@
       <if test="aac005 !=null and aac005 !=''">
         and aac005=#{aac005}
       </if>
-       <if test="aac011 !=null and aac011 !='' ">
+       <if test="a_aac011 !=null ">
         and aac011 in 
         <foreach item="item" collection="a_aac011" open="(" separator="," close=")">
             #{item}

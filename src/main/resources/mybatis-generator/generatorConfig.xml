@@ -22,6 +22,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         
+        <!--  
         <table tableName="AC01" domainObjectName="Ac01"
                enableCountByExample="false" 
                enableUpdateByExample="false"
@@ -29,5 +30,6 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
+        -->
     </context>
 </generatorConfiguration>

@@ -42,7 +42,7 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
 	 * @return
 	 */
 	@RequestMapping(value="/getFileList",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<HashMap<String,Object>> getUserListByGroupid(HttpServletRequest request,@RequestBody SFileRecord sFileRecord ) throws Exception {
+	public AjaxReturnMsg<HashMap<String,Object>> getUserListByGroupid(HttpServletRequest request, SFileRecord sFileRecord ) throws Exception {
 		return fileloadservice.getFileList(sFileRecord);
 	}
 	
@@ -77,7 +77,7 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
 	 * @return
 	 */
 	@RequestMapping(value="/batdelete",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> batdelete(HttpServletRequest request,@RequestBody SFileRecord sFileRecord){
+	public AjaxReturnMsg<String> batdelete(HttpServletRequest request, SFileRecord sFileRecord){
 		return fileloadservice.batDeleteData(sFileRecord);
 	}
 

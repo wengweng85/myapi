@@ -61,7 +61,7 @@ public class SysPermController extends MvcHelper<SPermission> {
 	 * @return
 	 */
 	@RequestMapping(value="/saveorupdate",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request,@RequestBody @Valid SPermission spermission,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request, @Valid SPermission spermission,BindingResult result) throws Exception {
 		//ºÏ—È ‰»Î
 		if (result.hasErrors()){
 			return validate(result);
