@@ -7,7 +7,45 @@
 	    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="logid"> 
             SELECT sys_guid() from dual 
         </selectKey>
-		insert into s_log(logid,logtime,content)
-		values (#{logid},sysdate,#{content})
+		insert into s_log(
+		    logid	,
+			logtype	,
+			message	,
+			logtime	,
+			cost	,
+			stackmsg	,
+			exceptiontype	,
+			usergent	,
+			ipaddr	,
+			referer	,
+			url	,
+			userid	,
+			cookie	,
+			appkey	,
+			queryparam	,
+			method	,
+			success	,
+			responsemsg	
+		)
+		values (
+		    #{logid, jdbcType=VARCHAR}	,
+			#{logtype,jdbcType=VARCHAR}	,
+			#{message,jdbcType=VARCHAR}	,
+			sysdate	,
+			#{cost,jdbcType=VARCHAR}	,
+			#{stackmsg,jdbcType=CLOB}	,
+			#{exceptiontype,jdbcType=VARCHAR}	,
+			#{usergent,jdbcType=VARCHAR}	,
+			#{ipaddr,jdbcType=VARCHAR}	,
+			#{referer,jdbcType=VARCHAR}	,
+			#{url,jdbcType=VARCHAR}	,
+			#{userid,jdbcType=VARCHAR}	,
+			#{cookie,jdbcType=VARCHAR}	,
+			#{appkey,jdbcType=VARCHAR}	,
+			#{queryparam,jdbcType=VARCHAR}	,
+			#{method,jdbcType=VARCHAR}	,
+			#{success,jdbcType=VARCHAR}	,
+			#{responsemsg,jdbcType=VARCHAR}
+		)
 	</insert>
 </mapper>

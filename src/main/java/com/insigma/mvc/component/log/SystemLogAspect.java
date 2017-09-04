@@ -62,9 +62,6 @@ public class SystemLogAspect {
         Object retVal = pjp.proceed();  
         long end = System.currentTimeMillis();
 		log.info(pjp + ",总共花费时间:" + (end - start)+ "毫秒!");
-		SLog slog=new SLog();
-		slog.setContent(pjp + ",总共花费时间:" + (end - start)+ "毫秒!");
-		logservice.saveLogInfo(slog);
 		return retVal;  
 	}
 

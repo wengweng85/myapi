@@ -11,7 +11,6 @@ import javax.jms.ObjectMessage;
 import javax.jms.StreamMessage;
 import javax.jms.TextMessage;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.stereotype.Component;
 
 import com.insigma.mvc.model.SLog;
@@ -35,10 +34,6 @@ public class JmsQueueMessageListener  implements MessageListener {
         try{
 	        // 如果是文本消息
 	        if (message instanceof TextMessage) {
-	            TextMessage tm = (TextMessage) message;
-	            SLog slog=new SLog();
-	    		slog.setContent("JmsQueueMessageListener_从默认队列收到了消息：\t"+ tm.getText());
-	    		logservice.saveLogInfo(slog);
 	        }
 	
 	        // 如果是Map消息
@@ -50,8 +45,8 @@ public class JmsQueueMessageListener  implements MessageListener {
 	        // 如果是Object消息
 	        if (message instanceof ObjectMessage) {
 	            ObjectMessage om = (ObjectMessage) message;
-	            Object exampleUser = (Object) om.getObject();
-	            System.out.println("从默认队列中获取 ObjectMessage：\t" + ToStringBuilder.reflectionToString(exampleUser));
+	            SLog slog = (SLog) om.getObject();
+	            logservice.saveLogInfo(slog);
 	        }
 	
 	        // 如果是bytes消息

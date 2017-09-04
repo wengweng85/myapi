@@ -24,16 +24,11 @@ public class LogServiceImpl implements LogService {
 	@Resource
 	private LogMapper logMapper;
 	
-	//@Resource
-	//private LogDao logdao;
 
 	@Override
 	@Transactional
 	public String saveLogInfo(SLog slog){
 		logMapper.saveLogInfo(slog);
-		slog.setContent(slog.getContent()+"2");
-		slog.setLogtime(new Date());
-		//logdao.save(slog);
 		return slog.getLogid();
 	}
 

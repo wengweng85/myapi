@@ -2,7 +2,6 @@ package com.insigma.mvc.serviceimp.jms;
 
 import java.io.Serializable;
 
-import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -24,7 +23,7 @@ import com.insigma.mvc.service.jms.JmsProducerService;
  * @author wengsh
  *
  */
-//@Service
+@Service
 public class JmsProducerServiceImpl implements JmsProducerService {
 
 	private Log log = LogFactory.getLog(JmsProducerServiceImpl.class);

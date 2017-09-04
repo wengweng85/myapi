@@ -3,10 +3,10 @@ package com.insigma.common.interceptor;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.ehcache.Element;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
@@ -17,7 +17,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.insigma.common.util.EhCacheUtil;
 import com.insigma.dto.AjaxReturnMsg;
+import com.insigma.mvc.component.log.LogUtil;
 import com.insigma.mvc.model.CodeValue;
+import com.insigma.mvc.model.SLog;
+import com.insigma.mvc.service.jms.JmsProducerService;
+import com.insigma.mvc.service.log.LogService;
 
 /**
  * 通用登录相关session Interceptor过滤器
@@ -28,7 +32,13 @@ import com.insigma.mvc.model.CodeValue;
 public class ApiInterceptor extends HandlerInterceptorAdapter {
 
 	Log log=LogFactory.getLog(ApiInterceptor.class);
+	
+	@Resource
+	private JmsProducerService jmsProducerService;
 
+	@Resource
+	private LogService logservice;
+	
 	private NamedThreadLocal<Long>  startTimeThreadLocal =   new NamedThreadLocal<Long>("StopWatch-StartTime");  
 	
 	private List<CodeValue> appkeylist=(List<CodeValue>)EhCacheUtil.getManager().getCache("webcache").get("APPKEY").getValue();
@@ -78,6 +88,10 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
     	}
     	return false;
     }
+    
+    /**
+     * afterCompletion
+     */
     @Override  
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response,  Object handler, Exception ex) throws Exception {  
         long endTime = System.currentTimeMillis();//2、结束时间  
@@ -86,7 +100,13 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
         if(consumeTime > 500) {//此处认为处理时间超过500毫秒的请求为慢请求  
             //TODO 记录到日志文件  
             log.info(String.format("%s consume %d millis", request.getRequestURI(), consumeTime));  
-        }          
+        }     
+        SLog slog=LogUtil.parseRequestToLog(request, response, ex);
+        slog.setLogtype("api");//日志烦劳
+        slog.setCost(new Long(endTime - beginTime).toString());
+        slog.setSuccess("true");
+        //jmsProducerService.sendObjectMessage(slog);
+		logservice.saveLogInfo(slog);
     }  
     
 }
