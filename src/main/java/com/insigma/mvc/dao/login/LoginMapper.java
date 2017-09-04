@@ -4,6 +4,7 @@ package com.insigma.mvc.dao.login;
 import java.util.List;
 
 import com.insigma.mvc.model.LoginInf;
+import com.insigma.mvc.model.SGroup;
 import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.model.SUser;
@@ -23,6 +24,14 @@ public interface LoginMapper {
 	 * @throws Exception 
 	 */
 	public SUser getUserAndGroupInfo(String loginname) throws Exception ;
+	
+	/**
+	 * 获取当前机构的行政区划信息
+	 * @param groupid
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SGroup> getGroupAreaInfo(String groupid)  throws Exception ;
 	
 	/**
 	 * 通过用户id获取用户角色集合

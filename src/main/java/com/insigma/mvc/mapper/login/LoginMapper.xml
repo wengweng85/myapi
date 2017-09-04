@@ -17,6 +17,11 @@
      and a.username=#{username}
 	</select>
 	
+	<!-- getGroupInfo -->
+	<select id="getGroupAreaInfo" parameterType="String" resultType="SGroup">
+         select groupid,parentid,name,type from s_group a start with groupid=#{groupid}  connect by prior PARENTID = groupid 
+	</select>
+	
 	<!-- 个人用户角色查询  -->
 	<select id="findRolesStr" parameterType="String" resultType="SRole">
 		select b.code from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid  and b.code is not null

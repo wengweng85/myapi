@@ -10,6 +10,7 @@ import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.login.LoginMapper;
 import com.insigma.mvc.model.LoginInf;
+import com.insigma.mvc.model.SGroup;
 import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.model.SUser;
@@ -30,13 +31,18 @@ public class LoginServiceImpl   extends MvcHelper  implements LoginService {
 	private LoginMapper loginmapper;
 	
 	@Override
-	public AjaxReturnMsg<SUser> getUserAndGroupInfo(String loginname) {
-		try {
-			return this.success(loginmapper.getUserAndGroupInfo(loginname));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	public AjaxReturnMsg<SUser> getUserAndGroupInfo(String loginname)  throws Exception{
+			SUser suser=loginmapper.getUserAndGroupInfo(loginname);
+			List<SGroup> list=loginmapper.getGroupAreaInfo(suser.getGroupid());
+			for (SGroup sgroup : list) {
+				Object type =sgroup.getType();
+				if("1".equals(type)){//当前数据为行政区划
+					suser.setAab301(sgroup.getGroupid());
+					suser.setAab301name(sgroup.getName());
+				    break;
+				}
+			}
+			return this.success(suser);
 	}
 
 	@Override
@@ -60,6 +66,5 @@ public class LoginServiceImpl   extends MvcHelper  implements LoginService {
 	public List<LoginInf> findLoginInfoByhashcode(String loginhash) {
 		return loginmapper.findLoginInfoByhashcode(loginhash);
 	}
-
 
 }

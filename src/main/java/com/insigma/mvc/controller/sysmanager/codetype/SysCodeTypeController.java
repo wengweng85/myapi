@@ -98,6 +98,19 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 		return sysCodeValueService.queryCodeValueByCodeTypeAndParent(codevalue);
 	}
 	
+	 /**
+	  * 通过代码类型获取代码信息
+	  * @param request
+	  * @param response
+	  * @param codevalue
+	  * @return
+	  * @throws AppException
+	  */
+	 @RequestMapping(value = "/getCodeTypeInfo/{codetype}",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	 public AjaxReturnMsg<CodeType> getCodeValueList(HttpServletRequest request, HttpServletResponse response,@PathVariable String codetype) throws AppException {
+		   return sysCodeTypeService.getCodeTypeInfo(codetype);
+	 } 
+	
 	
 	
 	/**
@@ -194,6 +207,11 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
 	 public AjaxReturnMsg<List<CodeValue>> getCodeValueList(HttpServletRequest request, HttpServletResponse response, CodeValue codevalue) throws AppException {
 		   return sysCodeValueService.getInitCodeValueList(codevalue);
 	 } 
+	 
+	 
+	
+	 
+	 
 	
 	
 }

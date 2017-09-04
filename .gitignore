@@ -4,3 +4,7 @@
 target/classes/com/insigma/mvc/mapper/demo/DemoAc01Mapper.xml
 target/classes/mybatis-generator/generatorConfig.xml
 target/maven-archiver/pom.properties
+target/classes/com/insigma/mvc/mapper/login/LoginMapper.xml
+target/m2e-wtp/web-resources/META-INF/maven/com.inaigma/myapi/pom.properties
+target/classes/config/spring/spring-mvc.xml
+target/m2e-wtp/web-resources/META-INF/maven/com.inaigma/myapi/pom.properties

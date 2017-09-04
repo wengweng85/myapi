@@ -74,6 +74,12 @@
             </props>
         </property>
      </bean>
+     
+    <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+     
 
      <bean id="systemLogAspect" class="com.insigma.mvc.component.log.SystemLogAspect"></bean>
 </beans> 

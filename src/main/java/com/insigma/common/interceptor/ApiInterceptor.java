@@ -1,10 +1,12 @@
 package com.insigma.common.interceptor;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.ehcache.Element;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
@@ -13,7 +15,9 @@ import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.insigma.common.util.EhCacheUtil;
 import com.insigma.dto.AjaxReturnMsg;
+import com.insigma.mvc.model.CodeValue;
 
 /**
  * 通用登录相关session Interceptor过滤器
@@ -27,13 +31,14 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
 	private NamedThreadLocal<Long>  startTimeThreadLocal =   new NamedThreadLocal<Long>("StopWatch-StartTime");  
 	
+	private List<CodeValue> appkeylist=(List<CodeValue>)EhCacheUtil.getManager().getCache("webcache").get("APPKEY").getValue();
+	
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	long beginTime = System.currentTimeMillis();//1、开始时间  
         startTimeThreadLocal.set(beginTime);//线程绑定变量（该数据只有当前请求的线程可见）
     	if (handler instanceof HandlerMethod) {
-			   //String appkey= request.getParameter("appkey")==null?"":request.getParameter("appkey");
-			   String appkey= request.getHeader("appkey");
+			  String appkey= request.getHeader("appkey");
 			 //生定向到重复提交页面
 			  AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
 			  if(appkey.equals("")){
@@ -44,7 +49,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 	                writer.flush();
 	                writer.close();
 	                return false;
-			 }else if(!appkey.equals("faaaac26-8f96-11e7-bb31-be2e44b06b34")){
+			 }else if(!validateAppKeyIsValid(appkey,appkeylist)){
 				    PrintWriter writer = response.getWriter();
 			    	dto.setSuccess(false);
 			    	dto.setMessage("appkey过期或不成功,不能访问");
@@ -53,15 +58,28 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 	                writer.close();
 	                return false;
 			}
-             return true;
+            return true;
         } else {
             return super.preHandle(request, response, handler);
         }
     }
     
+    /**
+     * 判断appkey是否有效
+     * @param key
+     * @param keylist
+     * @return
+     */
+    public boolean validateAppKeyIsValid(String key,List<CodeValue> keylist){
+    	for(int i=0;i<keylist.size();i++){
+    		if(key.equals(keylist.get(i).getCode_value())){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
     @Override  
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,   
-Object handler, Exception ex) throws Exception {  
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,  Object handler, Exception ex) throws Exception {  
         long endTime = System.currentTimeMillis();//2、结束时间  
         long beginTime = startTimeThreadLocal.get();//得到线程绑定的局部变量（开始时间）  
         long consumeTime = endTime - beginTime;//3、消耗的时间  
