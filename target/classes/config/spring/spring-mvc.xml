@@ -23,16 +23,21 @@
 	    http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         "> 
      
+     <!-- 自动扫描的包名 -->
+     <context:component-scan base-package="com.insigma" />
+     
+     <!-- 使用注解方式暴露接口 -->     
+     <dubbo:annotation package="com.insigma.mvc" />
+     
      <!-- 默认的注解映射的支持 -->
      <mvc:annotation-driven validator="validator" conversion-service="conversionService">
         <mvc:message-converters>
-             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
 		         <property name="supportedMediaTypes" value = "application/json;charset=UTF-8" />
 		    </bean>
             <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
                 <property name="objectMapper" ref="myCustomObjectMapper"></property>
             </bean>
-           
         </mvc:message-converters>
      </mvc:annotation-driven>
      
@@ -52,12 +57,8 @@
             </list>    
         </property>    
 	 </bean> 
-     
       
-     <!-- 自动扫描的包名 -->
-     <context:component-scan base-package="com.insigma" >
-         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />  
-     </context:component-scan>
+     
     
 	 <!-- 对静态资源文件的访问  方案一 （二选一） -->
  	 <mvc:default-servlet-handler/>

@@ -1,7 +1,5 @@
 package com.insigma.mvc.serviceimp.log;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
 package com.insigma.mvc.serviceimp.jms.listener.topic;
 
-import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -13,9 +12,6 @@ import javax.jms.TextMessage;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.stereotype.Component;
 
-import com.insigma.mvc.model.SLog;
-import com.insigma.mvc.service.log.LogService;
-
 /**
  * 消息接收服务
  * @author wengsh
@@ -24,8 +20,6 @@ import com.insigma.mvc.service.log.LogService;
 @Component
 public class JmsTopicMessageListenerCleintB  implements MessageListener {
 	
-	@Resource
-	private LogService logservice;
      
     /**
      * 接收消息
@@ -35,10 +29,6 @@ public class JmsTopicMessageListenerCleintB  implements MessageListener {
 	        // 如果是文本消息
 	        if (message instanceof TextMessage) {
 	            TextMessage tm = (TextMessage) message;
-	            
-	            SLog slog=new SLog();
-	    		slog.setContent("JmsTueueMessageListenerCleintB_从默认队列收到了消息：\t"+ tm.getText());
-	    		logservice.saveLogInfo(slog);
 	        }
 	
 	        // 如果是Map消息

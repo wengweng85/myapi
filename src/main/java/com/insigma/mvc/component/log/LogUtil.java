@@ -90,7 +90,7 @@ public class LogUtil {
 	            value[0]=ov.toString();  
 	        }  
 	        for(int k=0;k<value.length;k++){  
-	        	sb.append(ok+"="+value[k]);  
+	        	sb.append(ok+"="+value[k]+"&");  
 	        }  
 	      }  
 	    return sb.toString();

@@ -33,8 +33,8 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
 	Log log=LogFactory.getLog(ApiInterceptor.class);
 	
-	@Resource
-	private JmsProducerService jmsProducerService;
+	//@Resource
+	//private JmsProducerService jmsProducerService;
 
 	@Resource
 	private LogService logservice;

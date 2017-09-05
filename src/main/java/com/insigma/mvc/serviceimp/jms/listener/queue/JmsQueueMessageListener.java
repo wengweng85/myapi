@@ -1,7 +1,6 @@
 package com.insigma.mvc.serviceimp.jms.listener.queue;
 
 
-import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -14,7 +13,6 @@ import javax.jms.TextMessage;
 import org.springframework.stereotype.Component;
 
 import com.insigma.mvc.model.SLog;
-import com.insigma.mvc.service.log.LogService;
 
 /**
  * 消息接收服务
@@ -24,8 +22,6 @@ import com.insigma.mvc.service.log.LogService;
 @Component
 public class JmsQueueMessageListener  implements MessageListener {
 	
-    @Resource
-	private LogService logservice;
      
     /**
      * 接收消息
@@ -46,7 +42,7 @@ public class JmsQueueMessageListener  implements MessageListener {
 	        if (message instanceof ObjectMessage) {
 	            ObjectMessage om = (ObjectMessage) message;
 	            SLog slog = (SLog) om.getObject();
-	            logservice.saveLogInfo(slog);
+	            //logservice.saveLogInfo(slog);
 	        }
 	
 	        // 如果是bytes消息

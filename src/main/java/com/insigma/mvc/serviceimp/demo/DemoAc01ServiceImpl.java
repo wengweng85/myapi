@@ -8,9 +8,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.insigma.dto.AjaxReturnMsg;
@@ -26,7 +27,7 @@ import com.insigma.mvc.service.demo.DemoAc01Service;
  * @author wengsh
  *
  */
-
+@Component
 @Service
 public class DemoAc01ServiceImpl extends MvcHelper<DemoAc01> implements DemoAc01Service {
 
