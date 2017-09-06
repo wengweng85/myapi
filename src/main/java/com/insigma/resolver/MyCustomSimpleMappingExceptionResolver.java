@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import com.insigma.dto.AjaxReturnMsg;
+import com.insigma.dto.SysCode;
 
 
 public class MyCustomSimpleMappingExceptionResolver  extends  SimpleMappingExceptionResolver {
@@ -40,7 +41,8 @@ public class MyCustomSimpleMappingExceptionResolver  extends  SimpleMappingExcep
                 try {
                     PrintWriter writer = response.getWriter();
                     AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
-                    dto.setSuccess(false);
+                    dto.setSuccess("false");
+                    dto.setSyscode(SysCode.SYS_API_EXCEPTION.getCode());
                     dto.setMessage(e.getMessage());
                     writer.write(JSONObject.fromObject(dto).toString());
                     writer.flush();
@@ -54,7 +56,8 @@ public class MyCustomSimpleMappingExceptionResolver  extends  SimpleMappingExcep
         	 try {
                  PrintWriter writer = response.getWriter();
                  AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
-                 dto.setSuccess(false);
+                 dto.setSuccess("false");
+                 dto.setSyscode(SysCode.SYS_API_EXCEPTION.getCode());
                  dto.setMessage(e.getMessage());
                  writer.write(JSONObject.fromObject(dto).toString());
                  writer.flush();

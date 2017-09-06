@@ -17,6 +17,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.insigma.common.util.EhCacheUtil;
 import com.insigma.dto.AjaxReturnMsg;
+import com.insigma.dto.SysCode;
 import com.insigma.mvc.component.log.LogUtil;
 import com.insigma.mvc.model.CodeValue;
 import com.insigma.mvc.model.SLog;
@@ -24,9 +25,8 @@ import com.insigma.mvc.service.jms.JmsProducerService;
 import com.insigma.mvc.service.log.LogService;
 
 /**
- * 通用登录相关session Interceptor过滤器
+ * ApiInterceptor
  * @author wengsh
- * @date 2015-8-17
  *
  */
 public class ApiInterceptor extends HandlerInterceptorAdapter {
@@ -53,16 +53,16 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 			  AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
 			  if(appkey.equals("")){
 				    PrintWriter writer = response.getWriter();
-	                dto.setSuccess(false);
-	                dto.setMessage("appkey为空,不能访问");
+				    dto.setSuccess("false");
+				    dto.setSyscode(SysCode.SYS_APPKEY_EMPTY.getCode());
 	                writer.write(JSONObject.fromObject(dto).toString());
 	                writer.flush();
 	                writer.close();
 	                return false;
 			 }else if(!validateAppKeyIsValid(appkey,appkeylist)){
 				    PrintWriter writer = response.getWriter();
-			    	dto.setSuccess(false);
-			    	dto.setMessage("appkey过期或不成功,不能访问");
+				    dto.setSuccess("false");
+				    dto.setSyscode(SysCode.SYS_APPKEY_ERROR.getCode());
 	                writer.write(JSONObject.fromObject(dto).toString());
 	                writer.flush();
 	                writer.close();
