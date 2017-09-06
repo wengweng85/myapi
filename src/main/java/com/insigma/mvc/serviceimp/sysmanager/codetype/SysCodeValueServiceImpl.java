@@ -5,8 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.sysmanager.codetype.SysCodeTypeMapper;
@@ -18,6 +19,7 @@ import com.insigma.mvc.service.sysmanager.codetype.SysCodeValueService;
  * @author wengsh
  *
  */
+@Component
 @Service
 public class SysCodeValueServiceImpl extends MvcHelper<CodeValue> implements SysCodeValueService {
 

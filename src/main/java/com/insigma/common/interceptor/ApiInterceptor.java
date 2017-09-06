@@ -33,8 +33,8 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
 	Log log=LogFactory.getLog(ApiInterceptor.class);
 	
-	//@Resource
-	//private JmsProducerService jmsProducerService;
+	@Resource
+	private JmsProducerService jmsProducerService;
 
 	@Resource
 	private LogService logservice;
@@ -48,7 +48,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
     	long beginTime = System.currentTimeMillis();//1、开始时间  
         startTimeThreadLocal.set(beginTime);//线程绑定变量（该数据只有当前请求的线程可见）
     	if (handler instanceof HandlerMethod) {
-			  String appkey= request.getHeader("appkey");
+			  String appkey=request.getHeader("appkey")==null?"":request.getHeader("appkey");
 			 //生定向到重复提交页面
 			  AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
 			  if(appkey.equals("")){
@@ -105,8 +105,8 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
         slog.setLogtype("api");//日志烦劳
         slog.setCost(new Long(endTime - beginTime).toString());
         slog.setSuccess("true");
-        //jmsProducerService.sendObjectMessage(slog);
-		logservice.saveLogInfo(slog);
+        jmsProducerService.sendMessage(JSONObject.fromObject(slog).toString());
+		//logservice.saveLogInfo(slog);
     }  
     
 }

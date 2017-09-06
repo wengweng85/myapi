@@ -1,5 +1,6 @@
 package com.insigma.mvc.component.log;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Iterator;
@@ -61,14 +62,15 @@ public class LogUtil {
      */
     private static String getStackMsg(Exception e) {
     	if(e!=null){
-    		    StringWriter sw = new StringWriter();
-    	        PrintWriter pw = new PrintWriter(sw);
-    	        e.printStackTrace(pw);
-    	        return sw.toString();
+		    StringWriter sw = new StringWriter();
+	        PrintWriter pw = new PrintWriter(sw);
+	        e.printStackTrace(pw);
+	        return sw.toString();
     	}else{
     		return "";
     	}
     }
+
     
     /**
      * 得到请求参数
@@ -93,7 +95,11 @@ public class LogUtil {
 	        	sb.append(ok+"="+value[k]+"&");  
 	        }  
 	      }  
-	    return sb.toString();
+	    if(sb.length()>0){
+	    	return sb.deleteCharAt(sb.length()-1).toString();
+	    }else{
+	    	return "";
+	    }
     }
 
 }

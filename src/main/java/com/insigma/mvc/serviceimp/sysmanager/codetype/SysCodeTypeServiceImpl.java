@@ -4,15 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.sysmanager.codetype.SysCodeTypeMapper;
 import com.insigma.mvc.model.CodeType;
-import com.insigma.mvc.model.CodeValue;
 import com.insigma.mvc.service.sysmanager.codetype.SysCodeTypeService;
 
 /**
@@ -20,6 +19,7 @@ import com.insigma.mvc.service.sysmanager.codetype.SysCodeTypeService;
  * @author wengsh
  *
  */
+@Component
 @Service
 public class SysCodeTypeServiceImpl extends MvcHelper<CodeType> implements SysCodeTypeService {
 

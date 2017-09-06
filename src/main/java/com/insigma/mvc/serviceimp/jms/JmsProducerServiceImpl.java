@@ -7,6 +7,7 @@ import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.StreamMessage;
 
@@ -29,7 +30,7 @@ public class JmsProducerServiceImpl implements JmsProducerService {
 
 	private Log log = LogFactory.getLog(JmsProducerServiceImpl.class);
 
-	//@Resource(name = "jmsQueueTemplate")
+	@Resource(name = "jmsQueueTemplate")
 	//@Resource(name="jmsTopicTemplate")
     private JmsTemplate jmsTemplate;
 
@@ -61,7 +62,7 @@ public class JmsProducerServiceImpl implements JmsProducerService {
 				return mapMessage;
 			}
 		});
-		System.out.println("springJMS send map message...");
+		log.info("springJMS send map message...");
 	}
 
 	/**
@@ -74,10 +75,10 @@ public class JmsProducerServiceImpl implements JmsProducerService {
 		String destination = jmsTemplate.getDefaultDestination().toString();
 		jmsTemplate.send(destination, new MessageCreator() {
 			public Message createMessage(Session session) throws JMSException {
-				return session.createObjectMessage(object);
+				return session.createObjectMessage((Serializable) object);
 			}
 		});
-		System.out.println("springJMS send object message...");
+		log.info("springJMS send object message...");
 	}
 
 	/**
@@ -96,7 +97,7 @@ public class JmsProducerServiceImpl implements JmsProducerService {
 
 			}
 		});
-		System.out.println("springJMS send bytes message...");
+		log.info("springJMS send bytes message...");
 	}
 
 	/**
@@ -112,6 +113,6 @@ public class JmsProducerServiceImpl implements JmsProducerService {
 				return message;
 			}
 		});
-		System.out.println("springJMS send Strem message...");
+		log.info("springJMS send Strem message...");
 	}
 }
