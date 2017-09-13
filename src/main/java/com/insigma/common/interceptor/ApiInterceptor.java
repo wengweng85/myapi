@@ -57,7 +57,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 				    dto.setSyscode(SysCode.SYS_APPKEY_EMPTY.getCode());
 	                writer.write(JSONObject.fromObject(dto).toString());
 	                writer.flush();
-	                writer.close();
+	                //writer.close();
 	                return false;
 			 }else if(!validateAppKeyIsValid(appkey,appkeylist)){
 				    PrintWriter writer = response.getWriter();
@@ -65,7 +65,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 				    dto.setSyscode(SysCode.SYS_APPKEY_ERROR.getCode());
 	                writer.write(JSONObject.fromObject(dto).toString());
 	                writer.flush();
-	                writer.close();
+	                //writer.close();
 	                return false;
 			}
             return true;

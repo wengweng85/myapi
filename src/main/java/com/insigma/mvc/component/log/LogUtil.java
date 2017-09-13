@@ -1,8 +1,8 @@
 package com.insigma.mvc.component.log;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -10,6 +10,10 @@ import java.util.Set;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.connector.CoyoteOutputStream;
+import org.apache.catalina.connector.OutputBuffer;
+import org.apache.tomcat.util.buf.ByteChunk;
 
 import com.insigma.common.util.IPUtil;
 import com.insigma.mvc.model.SLog;
@@ -25,11 +29,12 @@ public class LogUtil {
 	 */
 	public static SLog parseRequestToLog(HttpServletRequest request, HttpServletResponse response, Exception e){
 	        SLog slog=new SLog();
-	        if(e!=null&&e.getMessage()!=null){
+	        /*if(e!=null&&e.getMessage()!=null){
 	        	 slog.setMessage(e.getMessage().length()>500?e.getMessage().substring(0,499):e.getMessage()); 
 	        	 slog.setExceptiontype(e.getClass().getName());
 	        	 slog.setStackmsg(getStackMsg(e));
-	        }
+	        }*/
+	        //请求信息
 	        slog.setUrl(request.getRequestURL().toString());
 	        slog.setMethod(request.getMethod());
 	        slog.setQueryparam(getQueryParam(request));
@@ -52,7 +57,41 @@ public class LogUtil {
 	            }
 	            slog.setCookie(cookie.length() >500?cookie.substring(0,499):cookie);
 	        }
+	        //response信息
+	        try{
+	            slog.setResponsemsg(parseResponse(response));
+	        }catch(Exception ex){
+	        	ex.printStackTrace();
+	        }
+	    
 	        return slog;
+	}
+	
+	/**
+	 * 
+	 * @param response
+	 * @throws Exception
+	 */
+	public static String  parseResponse(HttpServletResponse response) throws Exception{
+		String val="";
+		// 截取响应流  
+	    CoyoteOutputStream os = (CoyoteOutputStream) response.getOutputStream();  
+	    // 取到流对象对应的Class对象  
+	    Class<CoyoteOutputStream> c = CoyoteOutputStream.class;  
+	    // 取出流对象中的OutputBuffer对象，该对象记录响应到客户端的内容  
+	    Field fs = c.getDeclaredField("ob");  
+	    if (fs.getType().toString().endsWith("OutputBuffer")) {  
+	        fs.setAccessible(true);// 设置访问ob属性的权限  
+	        OutputBuffer ob = (OutputBuffer) fs.get(os);// 取出ob  
+	        Class<OutputBuffer> cc = OutputBuffer.class;  
+	        Field ff = cc.getDeclaredField("outputChunk");// 取到OutputBuffer中的输出流  
+	        ff.setAccessible(true);  
+	        if (ff.getType().toString().endsWith("ByteChunk")) {  
+	            ByteChunk bc = (ByteChunk) ff.get(ob);// 取到byte流  
+	             val = new String(bc.getBytes(), "UTF-8");// 最终的值  
+	        }
+	    }  
+	    return val;
 	}
 	
     /**

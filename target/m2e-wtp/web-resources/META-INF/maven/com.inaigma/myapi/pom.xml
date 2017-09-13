@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>com.insigma</groupId>
             <artifactId>myapi-common-model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2-SNAPSHOT</version>
 		</dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
@@ -585,10 +585,6 @@
 		
 		
 		<!-- swagger-springmvc dependencies -->  
-		
-		
-		
-	    <!--  
 	    <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -605,7 +601,6 @@
             <artifactId>guava</artifactId>  
             <version>15.0</version>  
         </dependency>  
-        -->
         
         <!-- jackson -->
 		<dependency>
@@ -672,6 +667,20 @@
 			<artifactId>jsp-api</artifactId>
 			<version>2.2</version>
 			<scope>provided</scope>
+		</dependency>
+		 <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote -->
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-coyote</artifactId>
+		    <version>7.0.30</version>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-catalina</artifactId>
+		    <version>7.0.30</version>
+		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

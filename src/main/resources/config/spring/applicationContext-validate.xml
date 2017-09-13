@@ -23,8 +23,6 @@
         <property name="validationMessageSource" ref="messageSource" />
     </bean>
 
-
-
     <bean id="messageSource"
         class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <!-- 以发布到服务器的路径为准 -->
@@ -33,17 +31,13 @@
         <property name="cacheSeconds" value="120" />
     </bean>
 
-    <bean id="webBindingInitializer"
-        class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-
+    <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
         <property name="conversionService">
             <bean
                 class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
             </bean>
-
         </property>
         <property name="validator" ref="validator" />
     </bean>
-
 </beans>
 	
